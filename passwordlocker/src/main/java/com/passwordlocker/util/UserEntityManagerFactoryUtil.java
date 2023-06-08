@@ -8,7 +8,7 @@ public class UserEntityManagerFactoryUtil {
 	private UserEntityManagerFactoryUtil() {}
 	public static EntityManagerFactory getFactory() {
 		if(factory == null)
-			factory = Persistence.createEntityManagerFactory("ananth");
+			factory = Persistence.createEntityManagerFactory("ram");
 		return factory;
 	}
 }

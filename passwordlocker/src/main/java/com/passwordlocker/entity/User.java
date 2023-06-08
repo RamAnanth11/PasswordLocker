@@ -28,6 +28,19 @@ public class User {
 	private String email;
 	@Column(nullable = false)
 	private String password;
+	
+	
+
+	public User(String name, String gender, Date dob, String phoneNumber, String email, String password) {
+		this.name = name;
+		this.gender = gender;
+		this.dob = dob;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.password = password;
+	}
+
+
 
 	@Override
 	public String toString() {

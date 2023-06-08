@@ -4,48 +4,49 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
-import com.passwordlocker.entity.User;
+import com.passwordlocker.entity.Account;
 import com.passwordlocker.util.UserEntityManagerFactoryUtil;
 
-public class UserRepository implements UserRepInterface {
+public class AccountsRepository implements AccountsRepInterface {
 	EntityManager manager = UserEntityManagerFactoryUtil.getFactory().createEntityManager();
-
+	
 	@Override
-	public String saveUser(User user) {
+	public String saveAccount(Account account) {
 		EntityTransaction transaction = manager.getTransaction();
 		try {
 			transaction.begin();
-			manager.persist(user);
+			manager.persist(account);
 			transaction.commit();
 			return "Data Saved";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "NOT Saved";
-	}
-
-	public User userLogin(String email, String password) {
-//		String sql = "SELECT u.id from User u where email = ?1 and password = ?2;";
-//		Query query = manager.createQuery(sql);
-//		query.setParameter(1, email);
-//		query.setParameter(2, password);
-//
-//		List list = query.getResultList();
-//
-		return null;
+		return "Not Saved";
 	}
 
 	@Override
-	public User updateUser(User user) {
+	public Account updateAccount(Account account) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User deleteUser(int id) {
+	public Account deleteAccount(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Account> getAllAccount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Account> getAccountByAccountName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

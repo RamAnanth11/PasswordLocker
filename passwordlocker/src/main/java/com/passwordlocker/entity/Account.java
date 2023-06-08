@@ -23,6 +23,18 @@ public class Account {
 	private String review;
 	@Column(name = "user_id", nullable = false)
 	private Integer userID;
+	
+	
+	
+	public Account(String accountName, String userName, String password, String review, Integer userID) {
+		this.accountName = accountName;
+		this.userName = userName;
+		this.password = password;
+		this.review = review;
+		this.userID = userID;
+	}
+
+
 
 	@Override
 	public String toString() {
