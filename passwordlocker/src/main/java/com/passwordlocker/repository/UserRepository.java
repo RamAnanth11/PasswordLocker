@@ -27,25 +27,48 @@ public class UserRepository implements UserRepInterface {
 	}
 
 	public User userLogin(String email, String password) {
-//		String sql = "SELECT u.id from User u where email = ?1 and password = ?2;";
-//		Query query = manager.createQuery(sql);
-//		query.setParameter(1, email);
-//		query.setParameter(2, password);
-//
-//		List list = query.getResultList();
-//
-		return null;
+		String sql = "from User u where email = ?1 and password = ?2";
+		Query query = manager.createQuery(sql);
+		query.setParameter(1, email);
+		query.setParameter(2, password);
+		try {
+			List<User> list = query.getResultList();
+			return list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+//		return manager.find(User.class, list.get(0));
 	}
 
 	@Override
 	public User updateUser(User user) {
-		// TODO Auto-generated method stub
+		int id = user.getId().intValue();
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		try {
+			manager.merge(user);
+			transaction.commit();
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public User deleteUser(int id) {
-		// TODO Auto-generated method stub
+		User user = manager.find(User.class, id);
+		EntityTransaction transaction = manager.getTransaction();
+		transaction.begin();
+		try {
+			manager.remove(user);
+			transaction.commit();
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
