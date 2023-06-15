@@ -1,14 +1,18 @@
-
 package com.passwordlocker.repository;
 
+import java.util.List;
+
+import com.passwordlocker.entity.Account;
 import com.passwordlocker.entity.User;
 import com.passwordlocker.util.ValidUser;
 
 public class UserServiceImplementation implements UserService {
 	private UserRepInterface repository;
+	private AccountsRepInterface accrep;
 	{
 		
 		repository = new UserRepository();
+		accrep = new AccountsRepository();
 	}
 
 	@Override
@@ -34,8 +38,33 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public User deleteUser(int id) {
+		User user = repository.deleteUser(id);
+		return user;
+	}
 
-		return null;
+	@Override
+	public String saveAccount(Account account) {
+		return accrep.saveAccount(account);
+	}
+
+	@Override
+	public Account updateAccount(Account account) {
+		return accrep.updateAccount(account);
+	}
+
+	@Override
+	public Account deleteAccount(int id) {
+		return accrep.deleteAccount(id);
+	}
+
+	@Override
+	public List<Account> getAllAccount() {
+		return accrep.getAllAccount();
+	}
+
+	@Override
+	public List<Account> getAccountByAccountName(String name) {
+		return accrep.getAccountByAccountName(name);
 	}
 
 }

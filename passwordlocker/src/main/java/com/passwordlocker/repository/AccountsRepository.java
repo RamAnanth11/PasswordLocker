@@ -38,19 +38,43 @@ public class AccountsRepository implements AccountsRepInterface {
 
 	@Override
 	public Account updateAccount(Account account) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityTransaction transaction = manager.getTransaction();
+		List<Account> list = getAccountByAccountName(account.getAccountName());
+		Account account2 = list.get(0);
+		transaction.begin();
+		manager.merge(account2);
+		transaction.commit();
+		
+		return account2;
 	}
 
 	@Override
 	public Account deleteAccount(int id) {
-		// TODO Auto-generated method stub
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			Account account = manager.find(Account.class, id);
+			transaction.begin();
+			manager.remove(account);
+			transaction.commit();
+			return account;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	@Override
 	public List<Account> getAllAccount() {
-		// TODO Auto-generated method stub
+		String sql = "From Account a";
+		try {
+			Query query = manager.createQuery(sql);
+			List<Account> list = query.getResultList();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 		return null;
 	}
 
@@ -60,8 +84,13 @@ public class AccountsRepository implements AccountsRepInterface {
 		Query query2 = manager.createQuery(query);
 		query2.setParameter(1, name);
 		query2.setParameter(2, user.getId());
-		List<Account> list = query2.getResultList();
-		return list;
+		try {
+			List<Account> list = query2.getResultList();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
